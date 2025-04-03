@@ -9,19 +9,23 @@ $numeros = [
     "5534999224730" => 1   // Tarles (10%)
 ];
 
-// Criar uma lista ponderada para sorteio justo
-$listaPonderada = [];
+// Calcular a soma total dos pesos
+$somaPesos = array_sum($numeros);
+
+// Gerar um número aleatório entre 1 e a soma dos pesos
+$rand = mt_rand(1, $somaPesos);
+
+$numeroEscolhido = null;
+$acumulado = 0;
+
+// Percorrer os números e escolher baseado no peso
 foreach ($numeros as $numero => $peso) {
-    for ($i = 0; $i < $peso; $i++) {
-        $listaPonderada[] = $numero;
+    $acumulado += $peso;
+    if ($rand <= $acumulado) {
+        $numeroEscolhido = $numero;
+        break;
     }
 }
-
-// Embaralhar a lista para garantir aleatoriedade
-shuffle($listaPonderada);
-
-// Selecionar um número aleatório a cada requisição
-$numeroEscolhido = $listaPonderada[array_rand($listaPonderada)];
 
 // Mensagem que será enviada
 $mensagem = urlencode("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
