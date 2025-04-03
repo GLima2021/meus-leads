@@ -1,0 +1,61 @@
+/* Resetando os estilos padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilização geral */
+body {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Texto superior */
+.texto-topo {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Container da imagem e botão */
+.banner {
+    position: relative;
+    display: inline-block;
+}
+
+.banner img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+}
+
+/* Botão flutuante */
+.botao {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #9f7c4f;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.botao:hover {
+    background-color: #965a00;
+}
+
+/* Rodapé */
+.copyright {
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.7;
+}
