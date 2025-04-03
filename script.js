@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     botao.style.transition = "opacity 1.5s ease-in-out";
 
     setTimeout(() => {
-        botao.style.opacity = "1";
+        botao.style.opacity = "2";
     }, 500);
 
     // Monitoramento de cliques no botão
