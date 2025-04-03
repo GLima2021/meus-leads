@@ -1,16 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const botao = document.getElementById("botaoRedirect");
+    // Animação de Fade-In no botão
+    const botao = document.querySelector(".botao");
+    botao.style.opacity = "0";
+    botao.style.transition = "opacity 1.5s ease-in-out";
 
-    botao.addEventListener("click", function (event) {
-        event.preventDefault(); // Evita o link direto para Cainã
+    setTimeout(() => {
+        botao.style.opacity = "1";
+    }, 500);
 
-        fetch("redirect.php")
-            .then(response => response.json())
-            .then(data => {
-                if (data.url) {
-                    window.location.href = data.url; // Redireciona para o WhatsApp correto
-                }
-            })
-            .catch(error => console.error("Erro ao redirecionar:", error));
+    // Monitoramento de cliques no botão
+    botao.addEventListener("click", function () {
+        console.log("Usuário clicou no botão de 'Assista Agora'");
     });
 });
