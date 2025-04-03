@@ -24,12 +24,10 @@ foreach ($numeros as $numero => $peso) {
 // Embaralhar a lista para evitar padrões previsíveis
 shuffle($listaPonderada);
 
-// Controle de sessão para distribuir os leads ciclicamente
-if (!isset($_SESSION['contador'])) {
-    $_SESSION['contador'] = 0;
-} else {
-    $_SESSION['contador'] = ($_SESSION['contador'] + 1) % count($listaPonderada);
-}
+
+// Escolher um número aleatório da lista ponderada
+$numeroEscolhido = $listaPonderada[array_rand($listaPonderada)];
+
 
 // Escolher o número atual
 $numeroEscolhido = $listaPonderada[$_SESSION['contador']];
