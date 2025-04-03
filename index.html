@@ -1,4 +1,26 @@
-<script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minicurso Gratuito</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <p class="texto-topo">CLIQUE NA IMAGEM PARA TER ACESSO 👇</p>
+        
+        <div class="banner">
+            <!-- A imagem agora é clicável -->
+            <a href="#" id="redirectLink">
+                <img src="https://imgur.com/udwG9j6.png" alt="Minicurso Gratuito">
+            </a>
+        </div>
+
+        <p class="copyright">Copyright © Código da Liberdade Online | Todos os direitos reservados.</p>
+    </div>
+
+    <script>
     document.addEventListener("DOMContentLoaded", function () {
         const imagemLink = document.getElementById("redirectLink");
 
@@ -29,7 +51,7 @@
                 }
             }
 
-            // Monta o link do Whatsapp
+            // Monta o link do WhatsApp
             const mensagem = encodeURIComponent("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
             const url = `https://api.whatsapp.com/send?phone=${numeroEscolhido}&text=${mensagem}`;
 
@@ -40,4 +62,6 @@
         // Aplica redirecionamento na imagem
         imagemLink.addEventListener("click", redirecionarWhatsApp);
     });
-</script>
+    </script>
+</body>
+</html>
