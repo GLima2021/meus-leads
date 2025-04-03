@@ -1,8 +1,8 @@
 <?php
 // Definir os números e suas respectivas probabilidades (pesos)
 $numeros = [
-    "5583988619696" => 2,  // Cainã (40%)
     "5581985307047" => 3,  // Gabriel (30%)
+    "5583988619696" => 2,  // Cainã (40%)
     "5585991724788" => 2,  // Anderson (20%)
     "5534999224730" => 1   // Tarles (10%)
 ];
