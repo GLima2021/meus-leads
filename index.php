@@ -1,46 +1,40 @@
-<?php
-session_start();
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Lista de números com seus respectivos pesos
+    const numerosComPesos = [
+        { numero: "5583988619696", peso: 4 }, // Cainã
+        { numero: "5581985307047", peso: 3 }, // Gabriel
+        { numero: "5585991724788", peso: 2 }, // Anderson
+        { numero: "5534999224730", peso: 1 }  // Tarles
+    ];
 
-// Definir os números e suas respectivas probabilidades (pesos)
-$numeros = [
-    "5583988619696" => 4,  // Cainã (50%)
-    "5581985307047" => 3,  // Gabriel (20%)
-    "5585991724788" => 2,  // Anderson (20%)
-    "5534999224730" => 1   // Tarles (10%)
-    "5581985307047" => 3,  // Gabriel (20%)
-    "5583988619696" => 4,  // Cainã (50%)
-    "5585991724788" => 2,  // Anderson (20%)
-    "5534999224730" => 1   // Tarles (10%)
-];
+    // Criar lista ponderada
+    const listaPonderada = [];
+    numerosComPesos.forEach(item => {
+        for (let i = 0; i < item.peso; i++) {
+            listaPonderada.push(item.numero);
+        }
+    });
 
-// Criar uma lista ponderada para sorteio justo
-$listaPonderada = [];
-foreach ($numeros as $numero => $peso) {
-    for ($i = 0; $i < $peso; $i++) {
-        $listaPonderada[] = $numero;
+    // Embaralhar a lista
+    function embaralhar(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
-}
 
-// Embaralhar a lista para evitar padrões previsíveis
-shuffle($listaPonderada);
+    embaralhar(listaPonderada);
 
-// Controle de sessão para distribuir os leads ciclicamente
-if (!isset($_SESSION['contador'])) {
-    $_SESSION['contador'] = 0;
-} else {
-    $_SESSION['contador'] = ($_SESSION['contador'] + 1) % count($listaPonderada);
-}
+    // Sorteia um número da lista embaralhada
+    const numeroEscolhido = listaPonderada[Math.floor(Math.random() * listaPonderada.length)];
 
-// Escolher o número atual
-$numeroEscolhido = $listaPonderada[$_SESSION['contador']];
+    // Monta a URL do WhatsApp
+    const mensagem = encodeURIComponent("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
+    const url = `https://api.whatsapp.com/send?phone=${numeroEscolhido}&text=${mensagem}`;
 
-// Mensagem que será enviada
-$mensagem = urlencode("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
-
-// Criar o link do WhatsApp
-$url = "https://api.whatsapp.com/send?phone=${listaPonderada}&text=Fala%20Tayan,%20quero%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20Minicurso%20💰!";
-
-// Redirecionar para o link do WhatsApp
-header("Location: $url");
-exit;
-?>
+    // Redireciona automaticamente
+    window.location.href = url;
+});
+</script>
