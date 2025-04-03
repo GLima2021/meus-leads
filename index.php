@@ -1,26 +1,34 @@
 <?php
 session_start();
 
-// Lista de números de WhatsApp balanceados
+// Definir os números e suas respectivas probabilidades (pesos)
 $numeros = [
-    "5583988619696", // Cainã
-    "5583988619696", // Cainã (80% de leads)
-    "5581985307047", // Gabriel (20% de leads)
+    "5583988619696" => 50,  // Cainã (50%)
+    "5581985307047" => 20,  // Gabriel (20%)
+    "5585991724788" => 20,  // Anderson (20%)
+    "5534999224730" => 10   // Tarles (10%)
 ];
 
+// Criar uma lista ponderada para sorteio justo
+$listaPonderada = [];
+foreach ($numeros as $numero => $peso) {
+    for ($i = 0; $i < $peso; $i++) {
+        $listaPonderada[] = $numero;
+    }
+}
 
 // Embaralhar a lista para evitar padrões previsíveis
-shuffle($numeros);
+shuffle($listaPonderada);
 
 // Controle de sessão para distribuir os leads ciclicamente
 if (!isset($_SESSION['contador'])) {
     $_SESSION['contador'] = 0;
 } else {
-    $_SESSION['contador'] = ($_SESSION['contador'] + 1) % count($numeros);
+    $_SESSION['contador'] = ($_SESSION['contador'] + 1) % count($listaPonderada);
 }
 
 // Escolher o número atual
-$numeroEscolhido = $numeros[$_SESSION['contador']];
+$numeroEscolhido = $listaPonderada[$_SESSION['contador']];
 
 // Mensagem que será enviada
 $mensagem = urlencode("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
