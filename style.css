@@ -37,12 +37,12 @@ body {
 .botao {
     position: absolute;
     bottom: 10%;
-    left: 50%;
+    left: 70%;
     transform: translateX(-50%);
     background-color: #01ad17;
     color: white;
     padding: 12px 20px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     text-decoration: none;
     border-radius: 8px;
