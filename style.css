@@ -33,26 +33,6 @@ body {
     border-radius: 10px;
 }
 
-/* Botão flutuante */
-.botao {
-    position: absolute;
-    bottom: 10%;
-    left: 70%;
-    transform: translateX(-50%);
-    background-color: #01ad17;
-    color: white;
-    padding: 12px 20px;
-    font-size: 20px;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-.botao:hover {
-    background-color: #965a00;
-}
-
 /* Rodapé */
 .copyright {
     margin-top: 20px;
