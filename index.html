@@ -12,13 +12,52 @@
         
         <div class="banner">
             <img src="https://imgur.com/HEBS9YQ.jpg" alt="Minicurso Gratuito">
-            <a href="index.php" class="botao">Assista agora</a>
-
+            <a href="#" class="botao">Assista agora</a>
         </div>
 
         <p class="copyright">Copyright © Código da Liberdade Online | Todos os direitos reservados.</p>
     </div>
-    <script src="script.js"></script>
 
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const botao = document.querySelector(".botao");
+        
+        botao.style.opacity = "0";
+        botao.style.transition = "opacity 1.5s ease-in-out";
+        setTimeout(() => {
+            botao.style.opacity = "1";
+        }, 500);
+
+        botao.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const numerosComPesos = [
+                { numero: "5583988619696", peso: 4 }, // Cainã
+                { numero: "5581985307047", peso: 3 }, // Gabriel
+                { numero: "5585991724788", peso: 2 }, // Anderson
+                { numero: "5534999224730", peso: 1 }  // Tarles
+            ];
+
+            const listaPonderada = [];
+            numerosComPesos.forEach(item => {
+                for (let i = 0; i < item.peso; i++) {
+                    listaPonderada.push(item.numero);
+                }
+            });
+
+            for (let i = listaPonderada.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [listaPonderada[i], listaPonderada[j]] = [listaPonderada[j], listaPonderada[i]];
+            }
+
+            const numeroEscolhido = listaPonderada[Math.floor(Math.random() * listaPonderada.length)];
+            const mensagem = encodeURIComponent("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
+            const url = `https://api.whatsapp.com/send?phone=${numeroEscolhido}&text=${mensagem}`;
+
+            console.log(`Usuário redirecionado para o número: ${numeroEscolhido}`);
+            window.location.href = url;
+        });
+    });
+    </script>
 </body>
 </html>
