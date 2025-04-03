@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 // Definir os números e suas respectivas probabilidades (pesos)
 $numeros = [
     "5583988619696" => 4,  // Cainã (40%)
@@ -9,23 +7,19 @@ $numeros = [
     "5534999224730" => 1   // Tarles (10%)
 ];
 
-// Calcular a soma total dos pesos
-$somaPesos = array_sum($numeros);
-
-// Gerar um número aleatório entre 1 e a soma dos pesos
-$rand = mt_rand(1, $somaPesos);
-
-$numeroEscolhido = null;
-$acumulado = 0;
-
-// Percorrer os números e escolher baseado no peso
+// Criar um array com base nos pesos
+$listaPonderada = [];
 foreach ($numeros as $numero => $peso) {
-    $acumulado += $peso;
-    if ($rand <= $acumulado) {
-        $numeroEscolhido = $numero;
-        break;
+    for ($i = 0; $i < $peso; $i++) {
+        $listaPonderada[] = $numero;
     }
 }
+
+// Embaralhar para garantir distribuição aleatória
+shuffle($listaPonderada);
+
+// Sortear um número aleatório da lista
+$numeroEscolhido = $listaPonderada[array_rand($listaPonderada)];
 
 // Mensagem que será enviada
 $mensagem = urlencode("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
