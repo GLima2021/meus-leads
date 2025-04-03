@@ -3,10 +3,10 @@ session_start();
 
 // Definir os números e suas respectivas probabilidades (pesos)
 $numeros = [
-    "5583988619696" => 50,  // Cainã (50%)
-    "5581985307047" => 20,  // Gabriel (20%)
-    "5585991724788" => 20,  // Anderson (20%)
-    "5534999224730" => 10   // Tarles (10%)
+    "5583988619696" => 4,  // Cainã (50%)
+    "5581985307047" => 3,  // Gabriel (20%)
+    "5585991724788" => 2,  // Anderson (20%)
+    "5534999224730" => 1   // Tarles (10%)
 ];
 
 // Criar uma lista ponderada para sorteio justo
