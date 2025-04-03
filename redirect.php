@@ -1,5 +1,5 @@
 <?php
-// Definir os números e suas respectivas probabilidades (pesos)
+// Lista de números com pesos de distribuição
 $numeros = [
     "5581985307047" => 3,  // Gabriel (30%)
     "5583988619696" => 2,  // Cainã (40%)
@@ -7,7 +7,7 @@ $numeros = [
     "5534999224730" => 1   // Tarles (10%)
 ];
 
-// Criar um array com base nos pesos
+// Criar array ponderado
 $listaPonderada = [];
 foreach ($numeros as $numero => $peso) {
     for ($i = 0; $i < $peso; $i++) {
@@ -15,19 +15,15 @@ foreach ($numeros as $numero => $peso) {
     }
 }
 
-// Embaralhar para garantir distribuição aleatória
+// Embaralhar a lista para garantir distribuição correta
 shuffle($listaPonderada);
 
-// Sortear um número aleatório da lista
+// Escolher um número aleatório da lista ponderada
 $numeroEscolhido = $listaPonderada[array_rand($listaPonderada)];
 
-// Mensagem que será enviada
+// Criar a URL do WhatsApp
 $mensagem = urlencode("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
-
-// Criar o link do WhatsApp
 $url = "https://api.whatsapp.com/send?phone=$numeroEscolhido&text=$mensagem";
 
-// Redirecionar para o link do WhatsApp
-header("Location: $url");
-exit;
-?>
+// Retornar a URL para o JavaScript
+echo json_encode(["url" => $url]);
