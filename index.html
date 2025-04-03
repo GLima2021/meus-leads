@@ -11,10 +11,10 @@
         <p class="texto-topo">CLIQUE EM “ASSISTA AGORA” PRA TER ACESSO 👇</p>
         
         <div class="banner">
+            <!-- A imagem agora é um link clicável -->
             <a href="#" id="redirectLink">
                 <img src="https://imgur.com/udwG9j6.png" alt="Minicurso Gratuito">
             </a>
-            <a href="#" class="botao" id="botaoRedirect">Assista agora</a>
         </div>
 
         <p class="copyright">Copyright © Código da Liberdade Online | Todos os direitos reservados.</p>
@@ -22,17 +22,8 @@
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const botao = document.getElementById("botaoRedirect");
         const imagemLink = document.getElementById("redirectLink");
 
-        // Animação de fade-in no botão
-        botao.style.opacity = "0";
-        botao.style.transition = "opacity 1.5s ease-in-out";
-        setTimeout(() => {
-            botao.style.opacity = "1";
-        }, 500);
-
-        // Função de redirecionamento com pesos
         function redirecionarWhatsApp(e) {
             e.preventDefault();
 
@@ -50,12 +41,6 @@
                 }
             });
 
-            // Embaralhar lista
-            for (let i = listaPonderada.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [listaPonderada[i], listaPonderada[j]] = [listaPonderada[j], listaPonderada[i]];
-            }
-
             const numeroEscolhido = listaPonderada[Math.floor(Math.random() * listaPonderada.length)];
             const mensagem = encodeURIComponent("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
             const url = `https://api.whatsapp.com/send?phone=${numeroEscolhido}&text=${mensagem}`;
@@ -64,8 +49,7 @@
             window.location.href = url;
         }
 
-        // Aplica redirecionamento tanto no botão quanto na imagem
-        botao.addEventListener("click", redirecionarWhatsApp);
+        // Aplica redirecionamento na imagem
         imagemLink.addEventListener("click", redirecionarWhatsApp);
     });
     </script>
