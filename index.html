@@ -1,22 +1,168 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minicurso Gratuito</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minicurso Gratuito</title>
+  <style>
+    /* Estilos básicos */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .texto-topo {
+      margin-bottom: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .banner img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .botao {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #28a745;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .copyright {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #777;
+    }
+    /* Estilo do Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal {
+      background: #fff;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 8px;
+      text-align: center;
+      position: relative;
+    }
+    .modal h2 {
+      margin-top: 0;
+    }
+    .modal button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: none;
+      background: #007bff;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .modal .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <p class="texto-topo">CLIQUE EM “ASSISTA AGORA” PRA TER ACESSO 👇</p>
-        
-        <div class="banner">
-            <img src="https://imgur.com/HEBS9YQ.jpg" alt="Minicurso Gratuito">
-            <a href="index.php" class="botao">Assista agora</a>
-        </div>
-
-        <p class="copyright">Copyright © Código da Liberdade Online | Todos os direitos reservados.</p>
+  <div class="container">
+    <p class="texto-topo">CLIQUE EM “ASSISTA AGORA” PRA TER ACESSO 👇</p>
+    
+    <div class="banner">
+      <img src="https://imgur.com/HEBS9YQ.jpg" alt="Minicurso Gratuito">
+      <!-- O botão agora abre o modal -->
+      <button id="openModal" class="botao">Assista agora</button>
     </div>
-    <script src="script.js"></script>
+
+    <p class="copyright">Copyright © Código da Liberdade Online | Todos os direitos reservados.</p>
+  </div>
+
+  <!-- Estrutura do Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <button class="close-modal" id="closeModal">&times;</button>
+      <h2>Escolha o Contato</h2>
+      <!-- Botões das opções -->
+      <button data-number="5583988619696" data-nome="Cainã">Cainã (50%)</button>
+      <button data-number="5581985307047" data-nome="Gabriel">Gabriel (20%)</button>
+      <button data-number="5585991724788" data-nome="Anderson">Anderson (20%)</button>
+      <button data-number="5534999224730" data-nome="Tarles">Tarles (10%)</button>
+    </div>
+  </div>
+
+  <script>
+    // Mapeamento dos contatos (poderia ser proveniente do PHP, mas aqui usamos objeto JS)
+    const contatos = {
+      "5583988619696": { nome: "Cainã", percentual: "50%" },
+      "5581985307047": { nome: "Gabriel", percentual: "20%" },
+      "5585991724788": { nome: "Anderson", percentual: "20%" },
+      "5534999224730": { nome: "Tarles", percentual: "10%" }
+    };
+
+    // Elementos
+    const openModalBtn = document.getElementById('openModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const closeModalBtn = document.getElementById('closeModal');
+
+    // Abrir o modal
+    openModalBtn.addEventListener('click', () => {
+      modalOverlay.style.display = 'flex';
+    });
+
+    // Fechar o modal
+    closeModalBtn.addEventListener('click', () => {
+      modalOverlay.style.display = 'none';
+    });
+
+    // Adicionar evento aos botões do modal
+    const optionButtons = modalOverlay.querySelectorAll('button[data-number]');
+    optionButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const telefone = this.getAttribute('data-number');
+        const nome = this.getAttribute('data-nome');
+        
+        // Exemplo de listagem no console (pode ser modificado para registrar de outra forma)
+        console.log(`Usuário escolheu: ${nome} (${telefone})`);
+        
+        // Fechar o modal
+        modalOverlay.style.display = 'none';
+        
+        // Redireciona para o WhatsApp com mensagem pré-definida
+        const mensagem = encodeURIComponent(`Fala ${nome}, quero mais informações sobre o Minicurso 💰!`);
+        const urlZap = `https://api.whatsapp.com/send?phone=${telefone}&text=${mensagem}`;
+        window.location.href = urlZap;
+      });
+    });
+  </script>
 </body>
 </html>
