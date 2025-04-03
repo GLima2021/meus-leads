@@ -13,3 +13,5 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Usuário clicou no botão de 'Assista Agora'");
     });
 });
+
+
