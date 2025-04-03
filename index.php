@@ -1,40 +1,35 @@
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    // Lista de números com seus respectivos pesos
-    const numerosComPesos = [
-        { numero: "5583988619696", peso: 4 }, // Cainã
-        { numero: "5581985307047", peso: 3 }, // Gabriel
-        { numero: "5585991724788", peso: 2 }, // Anderson
-        { numero: "5534999224730", peso: 1 }  // Tarles
-    ];
+<?php
+session_start();
 
-    // Criar lista ponderada
-    const listaPonderada = [];
-    numerosComPesos.forEach(item => {
-        for (let i = 0; i < item.peso; i++) {
-            listaPonderada.push(item.numero);
-        }
-    });
+// Lista de números de WhatsApp com pesos
+$numeros = [
+    "5583988619696" => 4,  // Cainã (40%)
+    "5581985307047" => 3,  // Gabriel (30%)
+    "5585991724788" => 2,  // Anderson (20%)
+    "5534999224730" => 1   // Tarles (10%)
+];
 
-    // Embaralhar a lista
-    function embaralhar(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
+// Criar uma lista ponderada para escolha aleatória
+$listaPonderada = [];
+foreach ($numeros as $numero => $peso) {
+    for ($i = 0; $i < $peso; $i++) {
+        $listaPonderada[] = $numero;
     }
+}
 
-    embaralhar(listaPonderada);
+// Embaralhar para evitar padrões
+shuffle($listaPonderada);
 
-    // Sorteia um número da lista embaralhada
-    const numeroEscolhido = listaPonderada[Math.floor(Math.random() * listaPonderada.length)];
+// Escolher um número aleatório da lista ponderada
+$numeroEscolhido = $listaPonderada[array_rand($listaPonderada)];
 
-    // Monta a URL do WhatsApp
-    const mensagem = encodeURIComponent("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
-    const url = `https://api.whatsapp.com/send?phone=${numeroEscolhido}&text=${mensagem}`;
+// Mensagem para o WhatsApp
+$mensagem = urlencode("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
 
-    // Redireciona automaticamente
-    window.location.href = url;
-});
-</script>
+// Criar o link do WhatsApp
+$url = "https://api.whatsapp.com/send?phone=$numeroEscolhido&text=$mensagem";
+
+// Redirecionar para o WhatsApp com o número escolhido
+header("Location: $url");
+exit;
+?>
