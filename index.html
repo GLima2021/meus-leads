@@ -21,47 +21,59 @@
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const imagemLink = document.getElementById("redirectLink");
-
-        function redirecionarWhatsApp(e) {
-            e.preventDefault();
-
-            // Lista com distribuição percentual
-            const numerosComPercentual = [
-                { numero: "5531971093699", percentual: 40 }, // Gabriela (40%)
-                { numero: "5581985307047", percentual: 30 }, // Gabriel (30%)
-                { numero: "5531995094917", percentual: 10 }, // Cainã (10%)
-                { numero: "5544991181399", percentual: 5 },  // Hermes (5%)
-                { numero: "5531995452119", percentual: 10 }, // Tarles (10%)
-                { numero: "5534984479415", percentual: 5 }   // Anderson (5%)
-            ];
-
-            // Gerar um número aleatório entre 0 e 100
-            const randomNum = Math.random() * 100;
-            let acumulado = 0;
-            let numeroEscolhido = null;
-
-            // Percorre a lista e escolhe o número baseado no percentual
-            for (let i = 0; i < numerosComPercentual.length; i++) {
-                acumulado += numerosComPercentual[i].percentual;
-                if (randomNum <= acumulado) {
-                    numeroEscolhido = numerosComPercentual[i].numero;
-                    break;
+        document.addEventListener("DOMContentLoaded", function () {
+            const imagemLink = document.getElementById("redirectLink");
+    
+            function redirecionarWhatsApp(e) {
+                e.preventDefault();
+    
+                // Verifica se já existe um número salvo no navegador do usuário
+                const numeroSalvo = localStorage.getItem("whatsappDestino");
+    
+                if (numeroSalvo) {
+                    // Já existe — redireciona sempre pro mesmo
+                    const mensagem = encodeURIComponent("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
+                    const url = `https://api.whatsapp.com/send?phone=${numeroSalvo}&text=${mensagem}`;
+                    console.log(`Redirecionando (fixo) para: ${url}`);
+                    window.location.href = url;
+                    return;
                 }
+    
+                // Lista com distribuição percentual
+                const numerosComPercentual = [
+                    { numero: "5531971093699", percentual: 40 }, // Gabriela (40%)
+                    { numero: "5581985307047", percentual: 30 }, // Gabriel (30%)
+                    { numero: "5531995094917", percentual: 10 }, // Cainã (10%)
+                    { numero: "5544991181399", percentual: 5 },  // Hermes (5%)
+                    { numero: "5531995452119", percentual: 10 }, // Tarles (10%)
+                    { numero: "5534984479415", percentual: 5 }   // Anderson (5%)
+                ];
+    
+                const randomNum = Math.random() * 100;
+                let acumulado = 0;
+                let numeroEscolhido = null;
+    
+                for (let i = 0; i < numerosComPercentual.length; i++) {
+                    acumulado += numerosComPercentual[i].percentual;
+                    if (randomNum <= acumulado) {
+                        numeroEscolhido = numerosComPercentual[i].numero;
+                        break;
+                    }
+                }
+    
+                // Salva o número no navegador
+                localStorage.setItem("whatsappDestino", numeroEscolhido);
+    
+                // Redireciona
+                const mensagem = encodeURIComponent("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
+                const url = `https://api.whatsapp.com/send?phone=${numeroEscolhido}&text=${mensagem}`;
+                console.log(`Redirecionando (novo) para: ${url}`);
+                window.location.href = url;
             }
-
-            // Monta o link do WhatsApp
-            const mensagem = encodeURIComponent("Fala Tayan, quero mais informações sobre o Minicurso 💰!");
-            const url = `https://api.whatsapp.com/send?phone=${numeroEscolhido}&text=${mensagem}`;
-
-            console.log(`Redirecionando para: ${url}`);
-            window.location.href = url;
-        }
-
-        // Aplica redirecionamento na imagem
-        imagemLink.addEventListener("click", redirecionarWhatsApp);
-    });
+    
+            imagemLink.addEventListener("click", redirecionarWhatsApp);
+        });
     </script>
+    
 </body>
 </html>
